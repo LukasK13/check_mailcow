@@ -1,5 +1,8 @@
+#!/usr/bin/python3
+
 import requests as req
 import argparse
+import sys
 
 parser = argparse.ArgumentParser(prog="check_mailcow.py", description='Check Mailcow API for container states')
 parser.add_argument("-d", "--domain", dest='domain', default="localhost",
@@ -22,5 +25,7 @@ if res.status_code == 200:
     else:
         print("Critical: Containers " + ", ".join([containers[i]['container'] for i in containers.keys() if
                                                    containers[i]['state'] != "running"]) + "are not running.")
+        sys.exit(2)
 else:
     print("Unknown: Request returned status code " + str(res.status_code) + ".")
+    sys.exit(3)
