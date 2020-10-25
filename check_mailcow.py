@@ -14,8 +14,12 @@ parser.add_argument("-k", "--key", dest="key", metavar="API-key", help="Key for 
 args = parser.parse_args()
 
 headers = {"Content-Type": "application/json", "X-API-Key": args.key}
-res = req.get(("https" if args.ssl else "http") + "://" + args.domain + "/api/v1/get/status/containers",
-              headers=headers, verify=args.verify)
+try:
+    res = req.get(("https" if args.ssl else "http") + "://" + args.domain + "/api/v1/get/status/containers",
+                  headers=headers, verify=args.verify)
+except:
+    print("Unknown: Connection refused.")
+    sys.exit(3)
 
 if res.status_code == 200:
     containers = res.json()
