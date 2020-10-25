@@ -28,7 +28,7 @@ if res.status_code == 200:
         print("OK: All containers in state 'running'.")
     else:
         print("Critical: Containers " + ", ".join([containers[i]['container'] for i in containers.keys() if
-                                                   containers[i]['state'] != "running"]) + "are not running.")
+                                                   containers[i]['state'] != "running"]) + " are not running.")
         sys.exit(2)
 else:
     print("Unknown: Request returned status code " + str(res.status_code) + ".")
