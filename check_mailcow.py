@@ -59,22 +59,20 @@ if res.status_code == 200:
             percent_used = int(nodes['used_percent'].replace("%", ""))
             if percent_used < int(args.warning):
                 print(
-                    "OK: vmail has sufficient storage. | vmail_dev={blkdev} vmail_used_percent={used_percent};{warn};{crit} vmail_used_size={used_size}"
+                    "OK: vmail has sufficient storage. | vmail_used_percent={used_percent};{warn};{crit} vmail_used_size={used_size}"
                     .format(
-                        blkdev = nodes['disk'],
                         used_percent = nodes['used_percent'],
-                        used_size = nodes['used'],
+                        used_size = nodes['used'].replace("G", "GB"),
                         warn = args.warning,
                         crit = args.critical
                     )
                 )
             elif int(args.warning) <= percent_used < int(args.critical):
                 print(
-                    "Warning: vmail is short on storage. | vmail_dev={blkdev} vmail_used_percent={used_percent};{warn};{crit} vmail_used_size={used_size}"
+                    "Warning: vmail is short on storage. | vmail_used_percent={used_percent};{warn};{crit} vmail_used_size={used_size}"
                     .format(
-                        blkdev = nodes['disk'],
                         used_percent = nodes['used_percent'],
-                        used_size = nodes['used'],
+                        used_size = nodes['used'].replace("G", "GB"),
                         warn = args.warning,
                         crit = args.critical
                     )
@@ -82,11 +80,10 @@ if res.status_code == 200:
                 sys.exit(1)
             else:
                 print(
-                    "Critical: vmail is critically low. | vmail_dev={blkdev} vmail_used_percent={used_percent};{warn};{crit} vmail_used_size={used_size}"
+                    "Critical: vmail is critically low. | vmail_used_percent={used_percent};{warn};{crit} vmail_used_size={used_size}"
                     .format(
-                        blkdev = nodes['disk'],
                         used_percent = nodes['used_percent'],
-                        used_size = nodes['used'],
+                        used_size = nodes['used'].replace("G", "GB"),
                         warn = args.warning,
                         crit = args.critical
                     )
