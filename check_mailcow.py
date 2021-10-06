@@ -44,8 +44,9 @@ if res.status_code == 200:
                 print(
                     "Critical: Containers {containers} are not running. | containers_up={num_up} containers_down={num_down} "
                     .format(
-                        num_up = running_containers,
-                        num_down = failed_container_list
+                        containers = failed_container_list,
+                        num_up = len(running_containers),
+                        num_down = len(failed_container_list)
                     )
                 )
                 sys.exit(2)
